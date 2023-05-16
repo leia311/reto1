@@ -6,6 +6,12 @@
   
   
   tasks:
+    - name: Check windows version
+        ansible.windows.win_command: windows --version
+      register: check_windows_version
+      
+    - ansible.builtin.debug:
+        msg: Windows Version is {{ check_windows_version.stdout_lines[0] }} 
 
    # - name: Obtener el hostname de la máquina e imprimir 
    #   ansible.builtin.setup:
