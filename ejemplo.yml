@@ -6,15 +6,23 @@
   
   
   tasks:
-    - name: install iis
-      win_feature:
-        name: Web-Server
-        state: present
+    - name: Check windows version
+      ansible.windows.win_command: hostname
+      register: nombre
+      
+    - ansible.builtin.debug:
+        var: " {{ nombre}}"  
+  
+  
+  #  - name: install iis
+  #    win_feature:
+  #      name: Web-Server
+  #      state: present
 
-    - name: start iis service
-      win_service:
-        name: W3Svc
-        state: started
+  #  - name: start iis service
+  #    win_service:
+  #      name: W3Svc
+  #      state: started
         
         
     #- name: Enable firewall
@@ -30,12 +38,7 @@
   
   
   
-   # - name: Check windows version
-   #     ansible.windows.win_command: windows --version
-   #   register: check_windows_version
-      
-   # - ansible.builtin.debug:
-   #     msg: Windows Version is {{ check_windows_version.stdout_lines[0] }} 
+  
 
    # - name: Obtener el hostname de la máquina e imprimir 
    #   ansible.builtin.setup:
