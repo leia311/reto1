@@ -1,8 +1,8 @@
 ---
 - name: Realizacion del reto1
-  hosts: windows
+  hosts: all
   become: true
-  gather_facts: no
+  gather_facts: false
   
   
   tasks:
