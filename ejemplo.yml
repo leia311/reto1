@@ -7,13 +7,13 @@
   
   tasks:
 
-    - name: Obtener el hostname de la máquina e imprimir 
-      ansible.builtin.setup:
-        filter:
-        - 'ansible_hostname'
-      register: setup
+   # - name: Obtener el hostname de la máquina e imprimir 
+   #   ansible.builtin.setup:
+   #     filter:
+   #     - 'ansible_hostname'
+   #   register: setup
 
-    - debug:
-        var: setup
+   # - debug:
+   #     var: setup
   
   
