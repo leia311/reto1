@@ -1,6 +1,6 @@
 ---
 - name: Realizacion del reto1
-  hosts: test
+  hosts: windows
   become: true
   gather_facts: no
   
