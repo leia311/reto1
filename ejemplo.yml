@@ -1,0 +1,6 @@
+---
+- name: Realizacion del reto1
+  hosts: test
+  become: true
+  
+  
