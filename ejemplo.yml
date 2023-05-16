@@ -17,9 +17,9 @@
         state: started
         
         
-    - name: Enable firewall
-      community.windows.win_firewall:
-      state: enabled
+    #- name: Enable firewall
+    #  community.windows.win_firewall:
+    #  state: enabled
   
    # - name: Gather facts from Chocolatey
    #   chocolatey.chocolatey.win_chocolatey_facts:
