@@ -7,7 +7,7 @@
   
   tasks:
 
-    - name: Collect only kernel facts
+    - name: Obtener el hostname de la máquina e imprimir 
       ansible.builtin.setup:
         filter:
         - 'ansible_hostname'
