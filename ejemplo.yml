@@ -15,7 +15,18 @@
         msg: "El hostname es {{ hostname_output.stdout }}"
     
     
-    
+    - name: Obtener información del sistema operativo
+      win_shell: 
+        $osInfo = Get-WmiObject -Class Win32_OperatingSystem
+        $osVersion = $osInfo.Version
+        $osCaption = $osInfo.Caption
+        Write-Host "La versión de Windows es $osCaption ($osVersion)"
+      register: os_info_output
+      changed_when: false
+
+    - name: Imprimir el resultado
+      debug:
+        msg: "{{ os_info_output.stdout }}"
     
     
      
@@ -57,10 +68,11 @@
        path: /tmp/reto1
        state: directory
        
-    - name: Create a directory 
+    - name: Create a file 
       win_file:
         path: /tmp/reto1/reto1_content
-        state: directory
+        state: touch
+        content: "{{ os_info_output.stdout }}"
        
     - name: archivo reto1_content la versión de windows del servido 
       win_copy:
