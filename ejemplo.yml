@@ -7,13 +7,13 @@
   
   
   tasks:
-    - name: Obtener la versión del sistema operativo
-      win_shell: ver
-      register: version_output
+    - name: Gather facts from Chocolatey
+      chocolatey.chocolatey.win_chocolatey_facts:
 
-    - name: Imprimir la versión en pantalla
-      debug:
-        var: version_output.stdout_lines
+    - name: Displays the gathered facts
+      ansible.builtin.debug:
+        var: ansible_chocolatey
+
   
   
   #  - name: install iis
@@ -31,12 +31,7 @@
     #  community.windows.win_firewall:
     #  state: enabled
   
-   # - name: Gather facts from Chocolatey
-   #   chocolatey.chocolatey.win_chocolatey_facts:
-
-   # - name: Displays the gathered facts
-   #   ansible.builtin.debug:
-   #     var: ansible_chocolatey
+  
   
   
   
