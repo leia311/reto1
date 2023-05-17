@@ -2,7 +2,7 @@
 - name: Realizacion del reto1
   #hosts: all
   hosts: student2-win1
-  become: yes
+  become: true
   gather_facts: false
   
   tasks:
@@ -76,9 +76,19 @@
        
     - name: archivo reto1_content la versión de windows del servido 
       win_copy:
-        content: Version is {{ version.stdout_lines[0] }} 
+        content: "{{ os_info_output.stdout }}" 
         dest:  /tmp/reto1/reto1_content
         
+    -  name: Install all updates
+       ansible.windows.win_updates:
+         category_names: '*'
+         
+    - name: Actualizar paquetes con Chocolatey
+      win_chocolatey:
+        name: all
+        state: latest
+         
+         
     - name: Install Windows Updates
       win_updates:
         category_names: "{{ categories | default(omit) }}"
@@ -92,6 +102,11 @@
         name: taty
         register: cambio
         
+    -  name: backup 
+       win_copy:
+        src:  /tmp/reto1/reto1_content
+        dest:  /tmp/reto1/reto1_content_1
+        
     - name: Insert linea
       community.windows.win_lineinfile:
         path: /tmp/reto1/reto1_content
@@ -102,7 +117,12 @@
         path:  /tmp/reto1/reto1_content
         regex: '^Version is {{ version.stdout_lines[0] }} '
         line: "ANSIBLE CON WINDOWS"
-    
+        
+    -  name:  cambiar linea
+       win_replace:
+         path:  /tmp/reto1/reto1_content
+         regexp:  '^ "{{ os_info_output.stdout }}"'
+         replace: "ANSIBLE CON WINDOWS"
        
   
   
