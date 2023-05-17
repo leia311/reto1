@@ -58,38 +58,38 @@
        state: directory
        
     - name: Create a directory 
-    win_file:
-       path: /tmp/reto1/reto1_content
-       state: directory
+      win_file:
+        path: /tmp/reto1/reto1_content
+        state: directory
        
-     - name: archivo reto1_content la versión de windows del servido 
-       win_copy:
+    - name: archivo reto1_content la versión de windows del servido 
+      win_copy:
         content: Version is {{ version.stdout_lines[0] }} 
         dest:  /tmp/reto1/reto1_content
         
-     - name: Install Windows Updates
-       win_updates:
+    - name: Install Windows Updates
+      win_updates:
         category_names: "{{ categories | default(omit) }}"
         reboot: '{{ reboot_server | default(true) }}'
         
-      - name: Reboot
-        ansible.windows.win_reboot:
+    - name: Reboot
+      ansible.windows.win_reboot:
       
-      - name: Change the hostname
-        ansible.windows.win_hostname:
-          name: taty
+    - name: Change the hostname
+      ansible.windows.win_hostname:
+        name: taty
         register: cambio
         
-      - name: Insert linea
-        community.windows.win_lineinfile:
-          path: /tmp/reto1/reto1_content
-          line: "ESTA ES UNA PRUEBA"
+    - name: Insert linea
+      community.windows.win_lineinfile:
+        path: /tmp/reto1/reto1_content
+        line: "ESTA ES UNA PRUEBA"
           
-      -  name:  cambiar linea
-         community.windows.win_lineinfile:
-           path:  /tmp/reto1/reto1_content
-           regex: '^Version is {{ version.stdout_lines[0] }} '
-           line: "ANSIBLE CON WINDOWS"
+    - name:  cambiar linea
+      community.windows.win_lineinfile:
+        path:  /tmp/reto1/reto1_content
+        regex: '^Version is {{ version.stdout_lines[0] }} '
+        line: "ANSIBLE CON WINDOWS"
     
        
   
