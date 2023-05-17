@@ -1,7 +1,7 @@
 ---
 - name: Realizacion del reto1
   hosts: all
-  become: yes
+  #become: yes
  
   gather_facts: false
   
