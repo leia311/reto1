@@ -3,9 +3,8 @@
   #hosts: all
   hosts: student2-win1
   #become: true
-  become: yes
-  become_method: runas
-  become_user: sudo
+ 
+
   gather_facts: false
   
   tasks:
