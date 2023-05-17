@@ -6,12 +6,13 @@
   
   
   tasks:
-    - name: Check windows version
-      ansible.windows.win_command: hostname
-      register: nombre
-      
-    - ansible.builtin.debug:
-        var: " {{ nombre}}"  
+    - name: Obtener la versión del sistema operativo
+      win_shell: ver
+      register: version_output
+
+    - name: Imprimir la versión en pantalla
+      debug:
+        var: version_output.stdout_lines
   
   
   #  - name: install iis
