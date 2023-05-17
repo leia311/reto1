@@ -10,9 +10,9 @@
       win_shell: hostname
       register: hostname_output
 
-   - name: Imprimir el resultado
-     debug:
-       msg: "El hostname es {{ hostname_output.stdout }}"
+    - name: Imprimir el resultado
+      debug:
+        msg: "El hostname es {{ hostname_output.stdout }}"
     
     
     
