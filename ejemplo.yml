@@ -118,11 +118,11 @@
         regex: '^Version is {{ version.stdout_lines[0] }} '
         line: "ANSIBLE CON WINDOWS"
         
-    - name:  cambiar linea
-      win_replace:
-        path:  /tmp/reto1/reto1_content
-        regexp:  '^ "{{ os_info_output.stdout }}"'
-        replace: "ANSIBLE CON WINDOWS"
+  #  - name:  cambiar linea
+  #    win_replace:
+  #      path:  /tmp/reto1/reto1_content
+  #      regexp:  '^ "{{ os_info_output.stdout }}"'
+  #      replace: "ANSIBLE CON WINDOWS"
        
   
   
