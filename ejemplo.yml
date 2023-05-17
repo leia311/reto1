@@ -6,13 +6,13 @@
   gather_facts: false
   
   tasks:
-    - name: Hostanme
-      win_command: ver
-      register: windows_version
+    - name: Obtener el hostname
+      win_shell: hostname
+      register: hostname_output
 
-    - name: Imprimir la versión de Windows en pantalla
-      debug:
-        msg: "La versión de Windows es {{ windows_version.stdout_lines[0] }}"
+   - name: Imprimir el resultado
+     debug:
+       msg: "El hostname es {{ hostname_output.stdout }}"
     
     
     
