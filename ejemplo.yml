@@ -1,9 +1,7 @@
 ---
 - name: Realizacion del reto1
   hosts: all
-  
-  #become: yes
- 
+  become: yes
   gather_facts: false
   
   
@@ -14,23 +12,37 @@
     - name: Displays the gathered facts
       ansible.builtin.debug:
         var: ansible_chocolatey
-
+        
+    - name: Displays the gathered facts
+      ansible.builtin.debug:
+        var: ansible_hostname
+     
+     
+    - name: Check windows version
+      ansible.windows.win_command: windows --version
+      register: version
+      
+    - ansible.builtin.debug:
+        msg:  Version is {{ version.stdout_lines[0] }} 
   
   
-  #  - name: install iis
-  #    win_feature:
-  #      name: Web-Server
-  #      state: present
-
-  #  - name: start iis service
-  #    win_service:
-  #      name: W3Svc
-  #      state: started
-        
-        
-    #- name: Enable firewall
-    #  community.windows.win_firewall:
-    #  state: enabled
+    - name: install iis
+      win_feature:
+        name: Web-Server
+        state: present
+    - name: start iis service
+      win_service:
+        name: W3Svc
+        state: started
+  
+    - name: Enable firewall
+      community.windows.win_firewall:
+      state: enabled
+  
+    - name: Create a directory 
+      win_file:
+       path: /tmp/reto1
+       state: directory
   
   
   
