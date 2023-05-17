@@ -6,6 +6,19 @@
   
   
   tasks:
+    - name: Obtener el hostname
+      ansible_hostname:
+      register: hostname
+
+    - name: Imprimir el hostname en pantalla
+      debug:
+        var: hostname.ansible_facts.ansible_hostname
+  
+  
+  
+  
+  
+  
     - name: Gather facts from Chocolatey
       chocolatey.chocolatey.win_chocolatey_facts:
 
