@@ -2,6 +2,7 @@
 - name: Realizacion del reto1
   hosts: all
   become: true
+  become_method: sudo
   gather_facts: false
   
   
