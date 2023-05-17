@@ -48,9 +48,9 @@
         name: W3Svc
         state: started
   
-    - name: Enable firewall
-      community.windows.win_firewall:
-      state: enabled
+  #  - name: Enable firewall
+  #    community.windows.win_firewall:
+  #    state: enabled
   
     - name: Create a directory 
       win_file:
