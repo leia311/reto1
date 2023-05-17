@@ -1,6 +1,7 @@
 ---
 - name: Realizacion del reto1
   hosts: all
+  become_method: runas
   #become: yes
  
   gather_facts: false
