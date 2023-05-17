@@ -1,0 +1,74 @@
+  hosts: student2-win1
+#  become: true
+  gather_facts: false
+
+ 
+  tasks:
+    - name: Obtener el hostname
+      win_shell: hostname
+      register: hostname_output
+
+    - name: Imprimir el resultado
+      debug:
+        msg: "El hostname es {{ hostname_output.stdout }}"
+
+    - name: version
+      setup:
+      register: setup
+      
+
+    - name:
+      debug:
+        var: setup.ansible_bios_version
+
+    - name: install iis
+      win_feature:
+        name: Web-Server
+        state: present
+    - name: start iis service
+      win_service:
+        name: W3Svc
+        state: started
+
+
+    - name: Create a directory 
+      win_file:
+       path: /tmp/reto1
+       state: directory
+       
+    - name: Create a file 
+      win_file:
+        path: /tmp/reto1/reto1_content
+        state: touch
+   
+    - name: Install Windows Updates
+      win_updates:
+        category_names: "{{ categories | default(omit) }}"
+        reboot: '{{ reboot_server | default(true) }}'
+
+    - name: Actualizar paquetes con Chocolatey
+      win_chocolatey:
+        name: all
+        state: latest
+
+    - name: Install all updates
+      ansible.windows.win_updates:
+        category_names: '*'
+
+    - name: Reboot
+      ansible.windows.win_reboot:
+      
+    - name: Change the hostname
+      ansible.windows.win_hostname:
+        name: taty
+     
+
+    - name: backup 
+      win_copy:
+        src:  /tmp/reto1/reto1_content
+        dest:  /tmp/reto1/reto1_content_1
+        
+    - name: Insert linea
+      community.windows.win_lineinfile:
+        path: /tmp/reto1/reto1_content
+        line: "ESTA ES UNA PRUEBA"
