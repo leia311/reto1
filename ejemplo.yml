@@ -5,6 +5,7 @@
   #become: true
   become: yes
   become_method: runas
+  become_user: sudo
   gather_facts: false
   
   tasks:
