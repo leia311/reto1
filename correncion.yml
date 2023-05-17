@@ -1,3 +1,4 @@
+ - name: Get the hostname of the Windows machine
   hosts: student2-win1
 #  become: true
   gather_facts: false
@@ -14,12 +15,18 @@
 
     - name: version
       setup:
-      register: setup
-      
+      register: setup 
 
-    - name:
+    - name: Ejecutar comando de PowerShell para obtener la versión de Windows
+      win_shell: |
+        (Get-WmiObject -Class Win32_OperatingSystem).Caption
+      register: windows_version
+
+    - name: Imprimir la versión de Windows
       debug:
-        var: setup.ansible_bios_version
+        var: windows_version.stdout_lines
+
+
 
     - name: install iis
       win_feature:
@@ -33,7 +40,7 @@
 
     - name: Create a directory 
       win_file:
-       path: /tmp/reto1
+       path: C:\tmp\reto1
        state: directory
        
     - name: Create a file 
