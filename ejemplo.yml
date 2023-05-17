@@ -5,14 +5,13 @@
   gather_facts: false
   
   tasks:
-    - name: Obtener el hostname
-      ansible_hostname:
-      register: hostname
+    - name: Hostanme
+      win_command: ver
+      register: windows_version
 
-    - name: Imprimir el hostname en pantalla
+    - name: Imprimir la versión de Windows en pantalla
       debug:
-        var: hostname.ansible_facts.ansible_hostname
-  
+        msg: "La versión de Windows es {{ windows_version.stdout_lines[0] }}"
   
   
   
