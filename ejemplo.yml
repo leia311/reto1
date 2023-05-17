@@ -2,7 +2,9 @@
 - name: Realizacion del reto1
   #hosts: all
   hosts: student2-win1
-  become: true
+  #become: true
+  become: yes
+  become_method: runas
   gather_facts: false
   
   tasks:
