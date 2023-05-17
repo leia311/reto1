@@ -112,7 +112,7 @@
         path: /tmp/reto1/reto1_content
         line: "ESTA ES UNA PRUEBA"
           
-    - name:  cambiar linea
+   # - name:  cambiar linea
       community.windows.win_lineinfile:
         path:  /tmp/reto1/reto1_content
         regex: '^Version is {{ version.stdout_lines[0] }} '
