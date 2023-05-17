@@ -1,6 +1,7 @@
 ---
 - name: Realizacion del reto1
-  hosts: all
+  #hosts: all
+  hosts: student2-win1
   become: yes
   gather_facts: false
   
@@ -12,7 +13,100 @@
     - name: Imprimir la versión de Windows en pantalla
       debug:
         msg: "La versión de Windows es {{ windows_version.stdout_lines[0] }}"
+    
+    
+    
+    
+    
+     
+    - name: Gather facts from Chocolatey
+      chocolatey.chocolatey.win_chocolatey_facts:
+
+    - name: Displays the gathered facts
+      ansible.builtin.debug:
+        var: ansible_chocolatey
+        
+    - name: Displays the gathered facts
+      ansible.builtin.debug:
+        var: windows_version.stdout_line
+     
+     
+    - name: Check windows version
+      ansible.windows.win_command: windows --version
+      register: version
+      
+    - ansible.builtin.debug:
+        msg:  Version is {{ version.stdout_lines[0] }} 
   
+  
+    - name: install iis
+      win_feature:
+        name: Web-Server
+        state: present
+    - name: start iis service
+      win_service:
+        name: W3Svc
+        state: started
+  
+    - name: Enable firewall
+      community.windows.win_firewall:
+      state: enabled
+  
+    - name: Create a directory 
+      win_file:
+       path: /tmp/reto1
+       state: directory
+       
+    - name: Create a directory 
+    win_file:
+       path: /tmp/reto1/reto1_content
+       state: directory
+       
+     - name: archivo reto1_content la versión de windows del servido 
+       win_copy:
+        content: Version is {{ version.stdout_lines[0] }} 
+        dest:  /tmp/reto1/reto1_content
+        
+     - name: Install Windows Updates
+       win_updates:
+        category_names: "{{ categories | default(omit) }}"
+        reboot: '{{ reboot_server | default(true) }}'
+        
+      - name: Reboot
+        ansible.windows.win_reboot:
+      
+      - name: Change the hostname
+        ansible.windows.win_hostname:
+          name: taty
+        register: cambio
+        
+      - name: Insert linea
+        community.windows.win_lineinfile:
+          path: /tmp/reto1/reto1_content
+          line: "ESTA ES UNA PRUEBA"
+          
+      -  name:  cambiar linea
+         community.windows.win_lineinfile:
+           path:  /tmp/reto1/reto1_content
+           regex: '^Version is {{ version.stdout_lines[0] }} '
+           line: "ANSIBLE CON WINDOWS"
+    
+       
+  
+  
+  
+  
+  
+  
+
+   # - name: Obtener el hostname de la máquina e imprimir 
+   #   ansible.builtin.setup:
+   #     filter:
+   #     - 'ansible_hostname'
+   #   register: setup
+
+   # - debug:
+   #     var: setup
   
   
   
