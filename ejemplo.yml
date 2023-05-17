@@ -29,6 +29,16 @@
     - name: Imprimir el resultado
       debug:
         msg: "{{ os_info_output.stdout }}"
+        
+    - name: Ejecutar comando de PowerShell para obtener la versión de Windows
+      win_shell: |
+        (Get-WmiObject -Class Win32_OperatingSystem).Caption
+      register: windows_version
+
+    - name: Imprimir la versión de Windows
+      debug:
+        var: windows_version.stdout_lines
+        
     
     
      
